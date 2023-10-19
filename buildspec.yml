@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo "Installing dependencies..."
+      - pip install -r requirements.txt
+
+  pre_build:
+    commands:
+      - echo "Running tests..."
+      # Add commands to run your tests if you have any. For example:
+      # - pytest
+
+  build:
+    commands:
+      - echo "Building the application..."
+      # Add build commands if needed.
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: './'
