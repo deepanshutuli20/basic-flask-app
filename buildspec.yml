@@ -3,23 +3,30 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.8
+      python: 3.8  # Choose the Python runtime version matching your app
     commands:
-      - echo "Installing dependencies..."
+      - echo Installing source dependencies...
       - pip install -r requirements.txt
 
   pre_build:
     commands:
-      - echo "Running tests..."
-      # Add commands to run your tests if you have any. For example:
-      # - pytest
+      - echo Pre-build phase...
+      # You can add additional commands to execute before the build, like tests.
 
   build:
     commands:
-      - echo "Building the application..."
-      # Add build commands if needed.
+      - echo Build started on `date`
+      - echo Running Flask app...
+      - python routes.py &
+      # The '&' allows the command to run in the background
+      # This is necessary if your app runs a server that does not exit
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
 
 artifacts:
   files:
     - '**/*'
-  base-directory: './'
+  base-directory: '/'  # Adjust this to where your files for deployment are located
+  discard-paths: no
